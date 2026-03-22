@@ -25,20 +25,107 @@ const Square = ({children, isSelected, updateboard, index}) => {
   )
 }
 
-
-
-function App() {
-  const test = [
-    'x','x','x',
-    'x','x','x',
-    'x','x','x'
+  const test3 = [
+    ['x','x','x'],
+    [null,null,null],
+    [null,null,null]
   ]
 
-  const test2 = ['x','x','x','x','x','x','x','x','x']
-  const test3 = ['x',null,null,null,null,null,null,null,null]
+  const comprobacion =  (comboLength, turno, matriz) => {
+    const rows = matriz.length;
+    const cols = matriz[0].length;
+    const directions = [
+      [1, 0],  // horizontal
+      [0, 1],  // vertical
+      [1, 1],  // diagonal ↘
+      [1, -1]  // diagonal ↗
+    ];
+
+    for (let i = 0; i < matriz.length; i++) {
+      for (let j = 0; j < matriz[i].length; j++) {
+        if (matriz[i][j] !== turno) continue; // se salta el ciclo
+        
+        // recorre las direcciones
+        for (const [dx, dy] of directions) { 
+          let combo = 1;
+          let x = j + dx; // moverse en horizontal
+          let y = i + dy; // moverse en vertical
+
+          while ( // no salir del tablero y que sea el mismo turno
+            y >= 0 && y < rows &&
+            x >= 0 && x < cols &&
+            matriz[y][x] === turno
+          ) {
+            //sumar combo
+            combo++;
+            // moverser en la direcccion asignada
+            x += dx;
+            y += dy;
+          }
+          if (combo >= comboLength) {
+            console.log('GANADOR:', turno);
+            return true;
+          }
+        }
+
+      }
+    }
+  }
+  
+
+  comprobacion(3, TURNS.X, test3)
+
   // diferencia de 0,2,3
 
 
+  const comprobacionIA = (comboLength, turno) => {
+  const rows = test3.length;
+  const cols = test3[0].length;
+
+  const directions = [
+    [1, 0],  // horizontal
+    [0, 1],  // vertical
+    [1, 1],  // diagonal ↘
+    [1, -1]  // diagonal ↗
+  ];
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+
+      if (test3[i][j] !== turno) continue;
+
+      for (const [dx, dy] of directions) {
+
+        let count = 1;
+        let x = j + dx;
+        let y = i + dy;
+
+        while (
+          y >= 0 && y < rows &&
+          x >= 0 && x < cols &&
+          test3[y][x] === turno
+        ) {
+          count++;
+          x += dx;
+          y += dy;
+        }
+
+        if (count >= comboLength) {
+          console.log('GANADOR:', turno);
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
+};
+
+
+
+
+function App() {
+  //console.log('render 📦')
   // array con 9 elementos vacios
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)

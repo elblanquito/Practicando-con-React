@@ -1,4 +1,5 @@
 import { useState } from "react"
+import confetti from "canvas-confetti"
 
 const TURNS = {
   X: 'x',
@@ -80,7 +81,11 @@ function App() {
     setTurn(Math.random() < 0.5 ? TURNS.X : TURNS.O)
     setWinner(null)
   }
-  
+
+  const checkEndGame = (newBoard) => {
+    // si todas las celdas estan llenas, true
+    return newBoard.every(row => row.every(cell => cell !== null)) 
+  }
 
   const updateBoard = (position) => {
     if (board[position[0]][position[1]] || winner) return // no sobre escribir || no seguir jugando
@@ -91,13 +96,17 @@ function App() {
     setTurn(newTurn) // cambiar el turno 
     const newWinner = checkWinner(3, turn, newBoard)
     if (newWinner) {
+      confetti()
       setWinner(turn)
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false) // empate
     }
   }
 
   return(
       <main className="board">
         <h1>Tres en raya</h1>
+        <button onClick={reserGame}>Empezar de nuevo</button>
         <section className="game">
           {
             board.map((row, rowIndex)=> {

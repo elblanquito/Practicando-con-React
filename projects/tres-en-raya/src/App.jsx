@@ -1,71 +1,12 @@
 import { useState } from "react"
 import confetti from "canvas-confetti"
 
-const TURNS = {
-  X: 'x',
-  O: 'o'
-}
-
-const WINNER = {
-  X: 'winner x',
-  O: 'winner o',
-  DRAW: 'empate'
-}
+import { Square } from "./components/Square.jsx"
+import { TURNS } from "./constans.js"
+import { checkWinner, checkEndGame } from "./logic/board.js"
+import { WinnerModal } from "./components/WinnerModal.jsx"
 
 
-const Square = ({children, isSelected, updateboard, position}) => {
-  const className = `square ${isSelected ? 'is-selected' : ''}`
-  const handleClick = () => {
-    updateboard(position)
-  }
-  
-  return (
-    <div onClick={handleClick} className={className} key={position}>
-      {children}
-    </div>
-  )
-}
-const checkWinner =  (comboLength, turno, matriz) => {
-  const rows = matriz.length;
-  const cols = matriz[0].length;
-  const directions = [
-    [1, 0],  // horizontal
-    [0, 1],  // vertical
-    [1, 1],  // diagonal ↘
-    [1, -1]  // diagonal ↗
-  ];
-
-  for (let i = 0; i < matriz.length; i++) {
-    for (let j = 0; j < matriz[i].length; j++) {
-      if (matriz[i][j] !== turno) continue; // se salta el ciclo
-      
-      // recorre las direcciones
-      for (const [dx, dy] of directions) { 
-        let combo = 1;
-        let x = j + dx; // moverse en horizontal
-        let y = i + dy; // moverse en vertical
-
-        while ( // no salir del tablero y que sea el mismo turno
-          y >= 0 && y < rows &&
-          x >= 0 && x < cols &&
-          matriz[y][x] === turno
-        ) {
-          //sumar combo
-          combo++;
-          // moverser en la direcccion asignada
-          x += dx;
-          y += dy;
-        }
-        if (combo >= comboLength) {
-          console.log('GANADOR:', turno);
-          return true;
-        }
-      }
-
-    }
-  }
-  return null;
-}  
 
 function App() {
   //console.log('render 📦')
@@ -76,15 +17,10 @@ function App() {
   const [turn, setTurn] = useState(Math.random() < 0.5 ? TURNS.X : TURNS.O)
   const [winner, setWinner] = useState(null) // no hay ganador aun
 
-  const reserGame = () => {
+  const resetGame = () => {
     setBoard(Array(3).fill(null).map(() => Array(3).fill(null)))
     setTurn(Math.random() < 0.5 ? TURNS.X : TURNS.O)
     setWinner(null)
-  }
-
-  const checkEndGame = (newBoard) => {
-    // si todas las celdas estan llenas, true
-    return newBoard.every(row => row.every(cell => cell !== null)) 
   }
 
   const updateBoard = (position) => {
@@ -106,7 +42,7 @@ function App() {
   return(
       <main className="board">
         <h1>Tres en raya</h1>
-        <button onClick={reserGame}>Empezar de nuevo</button>
+        <button onClick={resetGame}>Empezar de nuevo</button>
         <section className="game">
           {
             board.map((row, rowIndex)=> {
@@ -132,27 +68,7 @@ function App() {
             {TURNS.O}
           </Square>
         </section>
-        {
-          winner != null && (
-            <section className="winner">
-              <div className="text">
-                <h2>
-                  {
-                    winner == false 
-                    ? 'Empate' 
-                    : 'Ganó: ' + winner
-                  }
-                </h2>
-                <header className="win">
-                  {winner && <Square>{winner}</Square>}
-                </header>
-                <footer>
-                  <button onClick={reserGame}>Empezar de nuevo</button>
-                </footer>
-              </div>
-            </section>
-          )
-        }
+        <WinnerModal winner={winner} resetGame={resetGame}/>
       </main>
     )
 }

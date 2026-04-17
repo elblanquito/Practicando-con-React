@@ -5,22 +5,32 @@ import { Square } from "./components/Square.jsx"
 import { TURNS } from "./constans.js"
 import { checkWinner, checkEndGame } from "./logic/board.js"
 import { WinnerModal } from "./components/WinnerModal.jsx"
+import { saveGameToStorage, resetGameToStorage, getGameFromStorage } from "./logic/storage.js"
 
 
 
 function App() {
-  //console.log('render 📦')
   // array con 9 elementos vacios
-  const [board, setBoard] = useState(
-    Array(3).fill(null).map(() => Array(3).fill(null))
-  )
-  const [turn, setTurn] = useState(Math.random() < 0.5 ? TURNS.X : TURNS.O)
+
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = getGameFromStorage('board')
+    console.log('boardFromStorage: ',boardFromStorage)
+    if (Array.isArray(boardFromStorage)) return boardFromStorage
+    return Array(3).fill(null).map(() => Array(3).fill(null))
+  })
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = getGameFromStorage('turn')
+    console.log('turnFromStorage: ',turnFromStorage)
+    if (typeof turnFromStorage === "string") return turnFromStorage
+    return Math.random() < 0.5 ? TURNS.X : TURNS.O
+  })
   const [winner, setWinner] = useState(null) // no hay ganador aun
 
   const resetGame = () => {
     setBoard(Array(3).fill(null).map(() => Array(3).fill(null)))
     setTurn(Math.random() < 0.5 ? TURNS.X : TURNS.O)
     setWinner(null)
+    resetGameToStorage()
   }
 
   const updateBoard = (position) => {
@@ -30,7 +40,9 @@ function App() {
     setBoard(newBoard) // actualizamos el board orginal
     const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X // copiar el turno contrario
     setTurn(newTurn) // cambiar el turno 
-    const newWinner = checkWinner(3, turn, newBoard)
+    saveGameToStorage(newBoard, newTurn)
+
+    const newWinner = checkWinner(3, turn, newBoard) // revisar si hay ganador
     if (newWinner) {
       confetti()
       setWinner(turn)

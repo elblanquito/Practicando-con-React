@@ -1,0 +1,17 @@
+.sin-cursor * {
+  cursor: none !important;
+}
+
+.punteroCustom{
+  position: fixed;
+  background-color: rgba(86, 15, 157, 0.486);
+  outline: 5px solid rgb(69, 43, 95);
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  width: 40px;
+  height: 40px;
+  /* top: 50%; */
+  /* left: 50%; */
+  transform: translate(-50%, -50%);
+}

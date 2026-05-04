@@ -6,7 +6,7 @@
 
 > 📚 Colección de proyectos desarrollados siguiendo el [curso de React de midudev](https://www.youtube.com/playlist?list=PLUofhDIg_38q4D0xNWp7FEHOTcZhjWJ29)
 
----
+
 
 ## 🧠 Sobre este repositorio
 
@@ -15,7 +15,7 @@ Este repositorio contiene una recopilación de proyectos que he desarrollado mie
 ⚠️ **Importante:**  
 Los proyectos son réplicas educativas basadas en las clases del curso, con el objetivo de aprender y reforzar conceptos.
 
----
+
 
 ## 🚀 Objetivos
 
@@ -24,29 +24,34 @@ Los proyectos son réplicas educativas basadas en las clases del curso, con el o
 - Practicar buenas prácticas en desarrollo web  
 - Mejorar lógica y resolución de problemas  
 
----
+
 
 ## 🛠️ Tecnologías utilizadas
 
 - ⚛️ React  
-- 🟨 JavaScript (ES6+)  
-- 🌐 HTML5  
-- 🎨 CSS3  
+- 🟨 JavaScript
+- 🌐 HTML
+- 🎨 CSS 
 - 🔷 TypeScript  
 
----
+
 
 ## 📦 Instalación
 
+Clonar repositorio:
 ```bash
-# Clonar repositorio
 git clone https://github.com/tu-usuario/tu-repo.git
-
-# Entrar en un proyecto
+```
+Entrar en un proyecto:
+```bash
 cd nombre-del-proyecto
-
-# Instalar dependencias
+```
+Instalar dependencias:
+```bash
 npm install
-
-# Ejecutar en desarrollo
+```
+Ejecutar en desarrollo:
+```bash
 npm run dev
+```
+

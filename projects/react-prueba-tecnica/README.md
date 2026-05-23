@@ -4,6 +4,7 @@ APIs:
 
 - Facts Random: https://catfact.ninja/fact
 - Imagen random: https://cataas.com/cat/says/hello
+  - end point para usar: `https://cataas.com/cat/says/${firstWord}?size=50&color=red&jsonTrue`
 
 - Recupera un hecho aleatorio de gatos de la primera API
 - Recuperar la primera palabra del hecho

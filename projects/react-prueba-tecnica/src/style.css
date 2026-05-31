@@ -5,6 +5,39 @@ body {
   text-spacing-trim: 1px;
 }
 
+.app-title {
+  text-align: center;
+}
+
+.single-button {
+  margin: auto;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  background-color: #fff;
+  color: #777777;
+  border: 1px solid #777;
+  border-radius: 10px;
+  box-shadow: #0002 0 1px 3px 0;
+  font-size: 1em;
+  padding: 10px 25px;
+  transition: all 0.1s;
+  user-select: none;
+}
+.single-button:hover {
+  color: #b37329;
+  border-color: #b37329;
+}
+.single-button:active {
+  transform: translateY(4px);
+  background-color: #e6d6cc;
+}
+
+.single-button:active .icon {
+  transition: all 0.2s;
+  transform: rotate(90deg);
+}
+
 main {
   height: 100%;
   display: flex;
@@ -13,6 +46,7 @@ main {
 }
 
 .card-fact-cat {
+  cursor: pointer;
   margin: 30px;
   border-radius: 16px;
   padding: 25px;
@@ -20,16 +54,25 @@ main {
   display: flex;
   gap: 30px;
   background-color: #ffc58a15;
+  border: 1px solid #ffc48a29;
   flex-direction: column;
   margin: 30px;
   max-width: 500px;
+  transition: all 0.1s;
 }
 
-.card-fact-cat:hover{
+.card-fact-cat:hover {
   background-color: #ffc48a29;
+  border: 1px solid #ffc48a83;
 }
 
-h1 {
+.card-fact-cat:active {
+  transform: translate(0, 5px);
+  background-color: #ffc58a15;
+  border: 1px solid #ffc48a29;
+}
+
+.card-fact-cat h1 {
   margin: 0;
   text-align: center;
 }
@@ -46,10 +89,20 @@ h1 {
 }
 
 img {
+  border: 5px solid #ffc48a29;
+  border-left: 0;
+  border-top: 0;
   margin: auto;
   max-width: 100%;
   border-radius: 16px;
-  transition: all .1s ease;
+  transition: all 0.1s ease;
+}
+.card-fact-cat:hover img {
+  border-color: #ffc48a83;
+}
+
+.card-fact-cat:active img {
+  border-color: #ffc48a29;
 }
 
 @media (width <= 650px) {

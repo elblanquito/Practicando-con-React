@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import {getRamdomFact} from "../services/facts"
+import { getRamdomFact } from "../services/facts";
 
 const CAT_IMAGE_RAMDOM_URL = (word) => {
-  //return `https://cataas.com/cat/says/${word}?fontSize=30&fontColor=white&width=300&height=200`;
-  return `https://api.thecatapi.com/v1/images/search?&api_key=live_LfVriHfGaeh0m7Fh5LxFsiplOXofY5rQt6YCc2qPoCEd8cSzv0SwlUSR3NSdPGKk`
+  return `https://cataas.com/cat/says/${word}?fontSize=30&fontColor=white&width=300&height=200`;
+  //return `https://api.thecatapi.com/v1/images/search`
 };
 
-function useCatImage () {
-
-}
+function useCatImage() {}
 
 export const CardFactCat = () => {
   const [fact, setFact] = useState();
@@ -16,7 +14,7 @@ export const CardFactCat = () => {
   const [threeFirstWords, setThreeFirstWords] = useState();
 
   useEffect(() => {
-    getRamdomFact().then(newFact => setFact(newFact))
+    getRamdomFact().then((newFact) => setFact(newFact));
   }, []);
 
   useEffect(() => {
@@ -28,17 +26,18 @@ export const CardFactCat = () => {
 
     setThreeFirstWords(threeFirstWords);
     const getImageRamdomUrl = async () => {
-      const response = await fetch("https://api.thecatapi.com/v1/images/search");
-      const data = await response.json();
-      const { url } = data[0];
+      const response = await fetch(
+        CAT_IMAGE_RAMDOM_URL(threeFirstWords),
+      );
+      const url = response.url;
       setUrl(url);
     };
     getImageRamdomUrl();
   }, [fact]);
 
   const handleClick = async () => {
-    const newFact = await getRamdomFact()
-    setFact(newFact)
+    const newFact = await getRamdomFact();
+    setFact(newFact);
   };
 
   return (

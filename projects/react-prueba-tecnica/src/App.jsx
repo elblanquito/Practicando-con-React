@@ -1,11 +1,15 @@
+import { useEffect, useState } from "react";
 import { CardFactCat } from "./components/CardFactCat.jsx";
 import { IconReload } from "./components/IconReload.jsx";
-import { useEffect, useState } from "react";
 
 export function App() {
+  const [cards, setCards] = useState([0]);
   const [factCa, setFact] = useState(null);
   const handleClick = () => {
-
+    setCards((prev) => [...prev, prev.length]);
+    const cardsTemp = [...cards];
+    cardsTemp.push(cardsTemp.length);
+    setCards(cardsTemp);
   };
 
   return (
@@ -16,7 +20,9 @@ export function App() {
         <IconReload className="single-button-icon" width={22} height={22} />
       </button>
       <main>
-        <CardFactCat />
+        {cards.map((id) => (
+          <CardFactCat key={id} />
+        ))}
       </main>
     </>
   );

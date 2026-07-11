@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
 import { getRamdomFact } from "../services/facts";
-
-const CAT_IMAGE_RAMDOM_URL = (word) => {
-  return `https://cataas.com/cat/says/${word}?fontSize=30&fontColor=white&width=300&height=200`;
-  //return `https://api.thecatapi.com/v1/images/search`
-};
-
-function useCatImage() {}
+import { useCatImage } from "../hooks/useCatImage";
 
 export const CardFactCat = () => {
   const [fact, setFact] = useState();
-  const [url, setUrl] = useState();
   const [threeFirstWords, setThreeFirstWords] = useState();
+  const { imageUrl } = useCatImage({ threeFirstWords });
 
   useEffect(() => {
     getRamdomFact().then((newFact) => setFact(newFact));
@@ -23,16 +17,7 @@ export const CardFactCat = () => {
       .replace(/[^\p{L}\p{N}\s'’ñ]/gu, "")
       .split(" ", 3)
       .join(" ");
-
     setThreeFirstWords(threeFirstWords);
-    const getImageRamdomUrl = async () => {
-      const response = await fetch(
-        CAT_IMAGE_RAMDOM_URL(threeFirstWords),
-      );
-      const url = response.url;
-      setUrl(url);
-    };
-    getImageRamdomUrl();
   }, [fact]);
 
   const handleClick = async () => {
@@ -45,9 +30,9 @@ export const CardFactCat = () => {
       <h1>{threeFirstWords}</h1>
       <section className="article-body">
         {fact && <p className="article-fact">{fact}</p>}
-        {url && (
+        {imageUrl && (
           <img
-            src={url}
+            src={imageUrl}
             alt={`foto de una gato con un texto que dise ${fact.split(" ", 3).join(" ")}`}
           />
         )}

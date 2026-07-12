@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
-import { getRamdomFact } from "../services/facts";
 import { useCatImage } from "../hooks/useCatImage";
+import { useCatFact } from "../hooks/useCatFact";
 
 export const CardFactCat = () => {
-  const [fact, setFact] = useState();
+  const { fact, refreshFact } = useCatFact();
   const [threeFirstWords, setThreeFirstWords] = useState();
   const { imageUrl } = useCatImage({ threeFirstWords });
-
-  useEffect(() => {
-    getRamdomFact().then((newFact) => setFact(newFact));
-  }, []);
 
   useEffect(() => {
     if (!fact) return;
@@ -21,8 +17,7 @@ export const CardFactCat = () => {
   }, [fact]);
 
   const handleClick = async () => {
-    const newFact = await getRamdomFact();
-    setFact(newFact);
+    refreshFact();
   };
 
   return (

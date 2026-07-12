@@ -7,9 +7,6 @@ export function App() {
   const [factCa, setFact] = useState(null);
   const handleClick = () => {
     setCards((prev) => [...prev, prev.length]);
-    const cardsTemp = [...cards];
-    cardsTemp.push(cardsTemp.length);
-    setCards(cardsTemp);
   };
 
   return (

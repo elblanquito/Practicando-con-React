@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CardFactCat } from "./components/CardFactCat.jsx";
 import { IconReload } from "./components/IconReload.jsx";
 
 export function App() {
   const [cards, setCards] = useState([0]);
-  const [factCa, setFact] = useState(null);
   const handleClick = () => {
     setCards((prev) => [...prev, prev.length]);
   };

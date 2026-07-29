@@ -18,6 +18,7 @@ export const CardFactCat = () => {
         {fact && <p className="article-fact">{fact}</p>}
         {imageUrl && (
           <img
+            className="article-img"
             src={imageUrl}
             alt={`foto de una gato con un texto que dise "${firstWords}`}
           />

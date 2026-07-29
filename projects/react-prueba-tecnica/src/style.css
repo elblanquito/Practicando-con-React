@@ -88,7 +88,8 @@ main {
   line-height: 1.5;
 }
 
-img {
+.article-img {
+  background: #ffbde4;
   border: 5px solid #ffc48a29;
   border-left: 0;
   border-top: 0;

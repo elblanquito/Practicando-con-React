@@ -1,5 +1,5 @@
 body {
-  background-color: #121214;
+  background-color: #161312;
   color: #fff;
   font-family: arial;
   text-spacing-trim: 1px;
@@ -10,27 +10,29 @@ body {
 }
 
 .single-button {
+  
   margin: auto;
   display: flex;
   gap: 5px;
   align-items: center;
-  background-color: #fff;
-  color: #777777;
-  border: 1px solid #777;
+  background-color: #705233;
+  color: #ffc48a83;
+  border: 3px solid #ffc48a83;
   border-radius: 10px;
   box-shadow: #0002 0 1px 3px 0;
-  font-size: 1em;
+  font-size: 1.1em;
   padding: 10px 25px;
   transition: all 0.1s;
   user-select: none;
 }
 .single-button:hover {
-  color: #b37329;
-  border-color: #b37329;
+  background-color: #5a4229;
+  color: #c89a6b83;
+  border-color: #c89a6b83;
 }
 .single-button:active {
   transform: translateY(4px);
-  background-color: #e6d6cc;
+  background-color: #705233;
 }
 
 .single-button:active .icon {
@@ -89,10 +91,7 @@ main {
 }
 
 .article-img {
-  background: #ffbde4;
-  border: 5px solid #ffc48a29;
-  border-left: 0;
-  border-top: 0;
+  background: #ffc48a29;
   margin: auto;
   max-width: 100%;
   border-radius: 16px;

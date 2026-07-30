@@ -1,8 +1,8 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
+import { CAT_IMAGE_BASE_URL } from "../src/utils/catImageUrl";
 
 const LOCALHOST_URL = "http://localhost:5173/";
-const CAT_IMAGE_RAMDOM_URL = "https://cataas.com";
 
 test("app shows ramdom fact and image", async ({ page }) => {
   await page.goto(LOCALHOST_URL);
@@ -14,5 +14,5 @@ test("app shows ramdom fact and image", async ({ page }) => {
   const imageSrc = await image.getAttribute("src");
 
   await expect(textContent?.length).toBeGreaterThan(0);
-  await expect(imageSrc?.startsWith(CAT_IMAGE_RAMDOM_URL));
+  await expect(imageSrc?.startsWith(CAT_IMAGE_BASE_URL)).toBe(true);
 });
